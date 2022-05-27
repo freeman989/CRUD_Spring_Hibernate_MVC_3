@@ -1,4 +1,4 @@
-package data.config;
+package data;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +18,21 @@ import java.util.Properties;
 @ComponentScan(basePackages = "data")
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
-public class HibernateConfig {
-    private Environment environment;
+public class Config {
 
     @Autowired
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
+    private Environment environment;
 
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
+        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
+        //properties.put("hibernate.hbm2ddl.import_files", environment.getRequiredProperty("hibernate.hbm2ddl.import_files"));
+        properties.put("hibernate.hbm2ddl.charset_name", environment.getRequiredProperty("hibernate.hbm2ddl.charset_name"));
         return properties;
     }
 
-    @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
@@ -47,7 +46,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("data.model");
+        sessionFactory.setPackagesToScan("data");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

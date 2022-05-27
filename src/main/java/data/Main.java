@@ -1,23 +1,25 @@
 package data;
 
-import data.dao.UserDAOImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/kata";
-        String username = "root";
-        String password = "NoVeMbEr2021";
-        System.out.println("Connecting...");
 
-        try (Connection connection = DriverManager.getConnection(url, username, password)) {
-            System.out.println("Connection successful!");
-        } catch (SQLException e) {
-            System.out.println("Connection failed!");
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);
+        UserService userService = applicationContext.getBean(UserService.class);
+
+        User user = new User();
+        user.setName("Valentin");
+        user.setAge(22);
+
+        userService.add(user);
+
     }
 }

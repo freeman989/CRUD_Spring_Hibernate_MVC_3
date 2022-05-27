@@ -1,4 +1,4 @@
-package data.model;
+package data;
 
 import javax.persistence.*;
 
@@ -6,21 +6,12 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "surname")
-    private String surname;
-
-    @Column(name = "age")
     private int age;
-
-    @Column(name = "profession")
-    private String profession;
 
     public int getId() {
         return id;
@@ -38,14 +29,6 @@ public class User {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public int getAge() {
         return age;
     }
@@ -54,16 +37,12 @@ public class User {
         this.age = age;
     }
 
-    public String getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String profession) {
-        this.profession = profession;
-    }
-
     @Override
     public String toString() {
-        return  id +" "+ name +" "+ surname +" " + age +" "+ profession;
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

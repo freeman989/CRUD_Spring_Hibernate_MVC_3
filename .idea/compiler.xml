@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="CRUD_Spring_Hibernate_MVC_3" />
+        <module name="TransTest" />
         <module name="CRUD_Spring_Hibernate_MVC_Project" />
         <module name="CRUD_Spring_Hibernate_MVC_2" />
-        <module name="CRUD_Spring_Hibernate_MVC_3" />
       </profile>
     </annotationProcessing>
   </component>
